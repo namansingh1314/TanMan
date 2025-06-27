@@ -1532,7 +1532,7 @@ body {
         max-width: 100%;
       }
     }
-    .nurturev-container {
+    .tunman-container {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       color: white;
       max-width: 1200px;
@@ -1541,7 +1541,7 @@ body {
       box-sizing: border-box;
   }
 
-  .nurturev-comparison-btn {
+  .tunman-comparison-btn {
       display: inline-block;
       background-color: transparent;
       color: white;
@@ -1552,14 +1552,14 @@ body {
       font-size: 14px;
   }
 
-  .nurturev-heading {
+  .tunman-heading {
       font-size: 40px;
       margin-bottom: 1rem;
       font-weight: 600;
       text-align: center;
   }
 
-  .nurturev-description {
+  .tunman-description {
       max-width: 100%;
       margin-bottom: 2rem;
       line-height: 1.5;
@@ -1568,7 +1568,7 @@ body {
       text-align: center;
   }
 
-  .nurturev-comparison-wrapper {
+  .tunman-comparison-wrapper {
       position: relative;
       margin-bottom: 5px;
       border-radius: 12px;
@@ -1576,20 +1576,20 @@ body {
   }
 
   /* Grid layout for consistent widths */
-  .nurturev-grid-layout {
+  .tunman-grid-layout {
       display: grid;
       grid-template-columns: 35% 16.25% 16.25% 16.25% 16.25%;
       width: 100%;
   }
 
   /* Header row styling */
-  .nurturev-header-row {
+  .tunman-header-row {
       position: relative;
       z-index: 1;
       background-color: #0a0a14; /* Same as body background */
   }
 
-  .nurturev-header-cell {
+  .tunman-header-cell {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1598,7 +1598,7 @@ body {
   }
 
   /* Logo styling */
-  .nurturev-logo-container {
+  .tunman-logo-container {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1606,24 +1606,24 @@ body {
 
 
   /* Main table styling */
-  .nurturev-comparison-table {
+  .tunman-comparison-table {
       background-color: #13131f;
       border: 1px solid #1e1e2d;
       border-radius: 0 0 12px 12px; /* Only round bottom corners */
       overflow: hidden;
   }
 
-  .nurturev-table-row {
+  .tunman-table-row {
       display: grid;
       grid-template-columns: 35% 16.25% 16.25% 16.25% 16.25%;
       border-bottom: 1px solid #1e1e2d;
   }
 
-  .nurturev-table-row:last-child {
+  .tunman-table-row:last-child {
       border-bottom: none;
   }
 
-  .nurturev-feature-cell {
+  .tunman-feature-cell {
       padding: 20px;
       display: flex;
       align-items: center;
@@ -1633,7 +1633,7 @@ body {
       box-sizing: border-box;
   }
 
-  .nurturev-data-cell {
+  .tunman-data-cell {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -1642,16 +1642,16 @@ body {
       box-sizing: border-box;
   }
 
-  .nurturev-data-cell:last-child {
+  .tunman-data-cell:last-child {
       border-right: none;
   }
 
-  .nurturev-highlighted-column {
+  .tunman-highlighted-column {
       background-color: #1e2252;
   }
 
   /* Special styling for the highlighted header cell */
-  .nurturev-header-highlighted {
+  .tunman-header-highlighted {
       background-color: #1e2252;
       border-radius: 12px 12px 0 0; /* Round top corners */
       border-left: 1px solid #1e1e2d;
@@ -1659,7 +1659,7 @@ body {
       border-top: 1px solid #1e1e2d;
   }
 
-  .nurturev-check-icon {
+  .tunman-check-icon {
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -1672,7 +1672,7 @@ body {
       transition: transform 0.2s ease;
   }
 
-  .nurturev-x-icon {
+  .tunman-x-icon {
       display: inline-flex;
       justify-content: center;
       align-items: center;
@@ -1685,22 +1685,22 @@ body {
       transition: transform 0.2s ease;
   }
 
-  .nurturev-data-cell:hover .nurturev-check-icon,
-  .nurturev-data-cell:hover .nurturev-x-icon {
+  .tunman-data-cell:hover .tunman-check-icon,
+  .tunman-data-cell:hover .tunman-x-icon {
       transform: scale(1.1);
   }
 
-  .nurturev-partial-text {
+  .tunman-partial-text {
       color: white;
       font-size: 14px;
       transition: opacity 0.2s ease;
   }
 
-  .nurturev-data-cell:hover .nurturev-partial-text {
+  .tunman-data-cell:hover .tunman-partial-text {
       opacity: 0.8;
   }
 
-  .nurturev-footnote {
+  .tunman-footnote {
       text-align: right;
       font-size: 12px;
       color: rgba(255, 255, 255, 0.6);
@@ -1708,15 +1708,15 @@ body {
       margin-top: 5px;
   }
 
-  .nurturev-table-row:hover {
+  .tunman-table-row:hover {
       background-color: rgba(255, 255, 255, 0.03);
   }
 
-  .nurturev-table-row:hover .nurturev-highlighted-column {
+  .tunman-table-row:hover .tunman-highlighted-column {
       background-color: #232562;
   }
 
-  .nurturev-text-center {
+  .tunman-text-center {
       text-align: center;
   }
 
