@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,7 +121,8 @@
     }
 
     .le-card {
-      display: none; /* Hide all cards by default */
+      display: none;
+      /* Hide all cards by default */
       flex-direction: column;
       align-items: center;
       padding: 1.5rem;
@@ -132,7 +134,8 @@
     }
 
     .le-card.le-visible {
-      display: flex; /* Show only visible cards */
+      display: flex;
+      /* Show only visible cards */
     }
 
     .le-card:hover {
@@ -243,7 +246,8 @@
 
     /* Mobile accordion styles */
     .le-mobile-accordion {
-      display: none; /* Hidden by default, shown on mobile */
+      display: none;
+      /* Hidden by default, shown on mobile */
       width: 100%;
       margin-top: 2rem;
     }
@@ -298,7 +302,8 @@
     }
 
     .le-accordion-content.le-open {
-      max-height: 1000px; /* Large enough to show all content */
+      max-height: 1000px;
+      /* Large enough to show all content */
       padding-bottom: 1.5rem;
     }
 
@@ -343,13 +348,16 @@
 
     /* Media query for mobile */
     @media (max-width: 768px) {
+
       .le-cards-grid,
       .le-content-section {
-        display: none; /* Hide desktop components on mobile */
+        display: none;
+        /* Hide desktop components on mobile */
       }
 
       .le-mobile-accordion {
-        display: block; /* Show mobile accordion on mobile */
+        display: block;
+        /* Show mobile accordion on mobile */
       }
 
       .le-card-container {
@@ -368,6 +376,7 @@
     }
   </style>
 </head>
+
 <body>
   <div class="le-container">
     <div class="le-card-container">
@@ -397,7 +406,9 @@
             </svg>
             <svg class="le-settings-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
             </svg>
           </div>
         </div>
@@ -412,7 +423,9 @@
             </svg>
             <svg class="le-settings-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
             </svg>
           </div>
         </div>
@@ -427,7 +440,9 @@
             </svg>
             <svg class="le-settings-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
             </svg>
           </div>
         </div>
@@ -443,7 +458,9 @@
             </svg>
             <svg class="le-settings-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
             </svg>
           </div>
         </div>
@@ -458,7 +475,9 @@
             </svg>
             <svg class="le-settings-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
             </svg>
           </div>
         </div>
@@ -473,7 +492,9 @@
             </svg>
             <svg class="le-settings-icon" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="3"></circle>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
             </svg>
           </div>
         </div>
@@ -491,11 +512,13 @@
         <div class="le-right-content">
           <div class="le-content-item">
             <h4 class="le-content-heading" id="le-content-heading-1">Built to power revenue heroes like you</h4>
-            <p class="le-content-description" id="le-content-description-1">"MindTickle discovered cross-sell opportunities worth $2.4M with Tunman"</p>
+            <p class="le-content-description" id="le-content-description-1">"MindTickle discovered cross-sell
+              opportunities worth $2.4M with Tanman"</p>
           </div>
           <div class="le-content-item">
             <h4 class="le-content-heading" id="le-content-heading-2">Built to power revenue heroes like you</h4>
-            <p class="le-content-description" id="le-content-description-2">"MindTickle discovered cross-sell opportunities worth $2.4M with Tunman"</p>
+            <p class="le-content-description" id="le-content-description-2">"MindTickle discovered cross-sell
+              opportunities worth $2.4M with Tanman"</p>
           </div>
         </div>
       </div>
@@ -509,18 +532,21 @@
             <div class="le-accordion-header">
               <h3 class="le-accordion-title">Account Manager</h3>
               <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="le-accordion-content">
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners upfront.</p>
+                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
+                  upfront.</p>
               </div>
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers and team needs.</p>
+                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
+                  and team needs.</p>
               </div>
             </div>
           </div>
@@ -530,18 +556,21 @@
             <div class="le-accordion-header">
               <h3 class="le-accordion-title">Account Manager</h3>
               <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="le-accordion-content">
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners upfront.</p>
+                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
+                  upfront.</p>
               </div>
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers and team needs.</p>
+                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
+                  and team needs.</p>
               </div>
             </div>
           </div>
@@ -551,18 +580,21 @@
             <div class="le-accordion-header">
               <h3 class="le-accordion-title">Account Manager</h3>
               <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="le-accordion-content">
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners upfront.</p>
+                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
+                  upfront.</p>
               </div>
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers and team needs.</p>
+                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
+                  and team needs.</p>
               </div>
             </div>
           </div>
@@ -575,18 +607,21 @@
             <div class="le-accordion-header">
               <h3 class="le-accordion-title">Account Manager</h3>
               <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="le-accordion-content">
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners upfront.</p>
+                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
+                  upfront.</p>
               </div>
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers and team needs.</p>
+                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
+                  and team needs.</p>
               </div>
             </div>
           </div>
@@ -596,18 +631,21 @@
             <div class="le-accordion-header">
               <h3 class="le-accordion-title">Account Manager</h3>
               <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="le-accordion-content">
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners upfront.</p>
+                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
+                  upfront.</p>
               </div>
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers and team needs.</p>
+                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
+                  and team needs.</p>
               </div>
             </div>
           </div>
@@ -617,18 +655,21 @@
             <div class="le-accordion-header">
               <h3 class="le-accordion-title">Account Manager</h3>
               <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
             <div class="le-accordion-content">
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners upfront.</p>
+                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
+                  upfront.</p>
               </div>
               <div class="le-accordion-section">
                 <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers and team needs.</p>
+                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
+                  and team needs.</p>
               </div>
             </div>
           </div>
@@ -647,7 +688,7 @@
         title: "Land Card 1 Title",
         leftSubheading: "Land Card 1 Subheading: Revenue heroes start here",
         contentHeading1: "Land Card 1 Content Heading 1",
-        contentDescription1: "Land Card 1 Content Description 1: MindTickle discovered new opportunities worth $2.4M with Tunman",
+        contentDescription1: "Land Card 1 Content Description 1: MindTickle discovered new opportunities worth $2.4M with Tanman",
         contentHeading2: "Land Card 1 Content Heading 2",
         contentDescription2: "Land Card 1 Content Description 2: Unique selling proposition for first-time customers"
       },
@@ -778,11 +819,11 @@
     leToggleButtons.forEach(button => {
       button.addEventListener('click', () => {
         const tab = button.getAttribute('data-tab');
-        
+
         if (tab !== leActiveTab) {
           // Update active tab
           leActiveTab = tab;
-          
+
           // Update toggle buttons
           leToggleButtons.forEach(btn => {
             if (btn.getAttribute('data-tab') === leActiveTab) {
@@ -791,28 +832,28 @@
               btn.classList.remove('le-active');
             }
           });
-          
+
           // Update toggle slider
           leToggleSlider.className = `le-toggle-slider le-${leActiveTab}`;
-          
+
           // Show/hide cards based on active tab
           leCards.forEach(card => {
             const cardTab = card.getAttribute('data-tab');
-            
+
             if (cardTab === leActiveTab) {
               card.classList.add('le-visible');
             } else {
               card.classList.remove('le-visible', 'le-active');
             }
           });
-          
+
           // Reset active card index to first card of the tab
           leActiveCardIndex = 0;
-          
+
           // Update card styles and content
           leUpdateCardStyles();
           leUpdateContent(leActiveTab, leActiveCardIndex);
-          
+
           // Update mobile accordions
           leUpdateMobileAccordions();
         }
@@ -824,14 +865,14 @@
       card.addEventListener('click', () => {
         const cardIndex = parseInt(card.getAttribute('data-card'));
         const cardTab = card.getAttribute('data-tab');
-        
+
         if (cardTab === leActiveTab && cardIndex !== leActiveCardIndex) {
           // Update active card index
           leActiveCardIndex = cardIndex;
-          
+
           // Update card styles
           leUpdateCardStyles();
-          
+
           // Update content
           leUpdateContent(leActiveTab, leActiveCardIndex);
         }
@@ -843,7 +884,7 @@
       header.addEventListener('click', () => {
         const accordionContent = header.nextElementSibling;
         const accordionIcon = header.querySelector('.le-accordion-icon');
-        
+
         // Toggle the accordion content
         if (accordionContent.classList.contains('le-open')) {
           accordionContent.classList.remove('le-open');
@@ -856,7 +897,7 @@
           document.querySelectorAll('.le-accordion-icon').forEach(icon => {
             icon.classList.remove('le-open');
           });
-          
+
           // Open this accordion
           accordionContent.classList.add('le-open');
           accordionIcon.classList.add('le-open');
@@ -869,10 +910,10 @@
       leCards.forEach(card => {
         const cardIndex = parseInt(card.getAttribute('data-card'));
         const cardTab = card.getAttribute('data-tab');
-        
+
         // Remove all active classes
         card.classList.remove('le-active', 'le-land', 'le-expand');
-        
+
         // Add active class if this is the active card in the active tab
         if (cardTab === leActiveTab && cardIndex === leActiveCardIndex) {
           card.classList.add('le-active', `le-${leActiveTab}`);
@@ -884,10 +925,10 @@
     function leUpdateContent(tab, cardIndex) {
       // Get the appropriate content based on the active tab
       const content = tab === 'land' ? leCardContentsLand[cardIndex] : leCardContentsExpand[cardIndex];
-      
+
       // Get the left subheading element
       const leLeftSubheading = document.querySelector('.le-left-subheading');
-      
+
       // Update all content elements
       leLeftSubheading.textContent = content.leftSubheading;
       leContentHeading1.textContent = content.contentHeading1;
@@ -901,13 +942,13 @@
       if (leActiveTab === 'land') {
         leLandAccordions.style.display = 'block';
         leExpandAccordions.style.display = 'none';
-        
+
         // Update land accordion content
         updateAccordionContent(leAccordionContentsLand, 'land');
       } else {
         leLandAccordions.style.display = 'none';
         leExpandAccordions.style.display = 'block';
-        
+
         // Update expand accordion content
         updateAccordionContent(leAccordionContentsExpand, 'expand');
       }
@@ -916,7 +957,7 @@
     // Update accordion content
     function updateAccordionContent(contentArray, tab) {
       const accordions = document.querySelectorAll(`.le-accordion-item[data-tab="${tab}"]`);
-      
+
       accordions.forEach((accordion, index) => {
         const content = contentArray[index];
         const title = accordion.querySelector('.le-accordion-title');
@@ -925,7 +966,7 @@
         const section1Text = accordion.querySelector('.le-accordion-section:first-child .le-accordion-section-text');
         const section2Title = accordion.querySelector('.le-accordion-section:last-child .le-accordion-section-title');
         const section2Text = accordion.querySelector('.le-accordion-section:last-child .le-accordion-section-text');
-        
+
         title.textContent = content.title;
         subtitle.textContent = content.subtitle;
         section1Title.textContent = content.section1Title;
@@ -937,10 +978,11 @@
 
     // Initialize the first card as active
     leUpdateCardStyles();
-    
+
     // Initialize mobile accordions with content
     updateAccordionContent(leAccordionContentsLand, 'land');
     updateAccordionContent(leAccordionContentsExpand, 'expand');
   </script>
 </body>
+
 </html>

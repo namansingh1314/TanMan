@@ -1552,7 +1552,7 @@ body {
   }
 }
 
-.tunman-container {
+.tanman-container {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: white;
   max-width: 1200px;
@@ -1561,7 +1561,7 @@ body {
   box-sizing: border-box;
 }
 
-.tunman-comparison-btn {
+.tanman-comparison-btn {
   display: inline-block;
   background-color: transparent;
   color: white;
@@ -1572,14 +1572,14 @@ body {
   font-size: 14px;
 }
 
-.tunman-heading {
+.tanman-heading {
   font-size: 40px;
   margin-bottom: 1rem;
   font-weight: 600;
   text-align: center;
 }
 
-.tunman-description {
+.tanman-description {
   max-width: 100%;
   margin-bottom: 2rem;
   line-height: 1.5;
@@ -1588,7 +1588,7 @@ body {
   text-align: center;
 }
 
-.tunman-comparison-wrapper {
+.tanman-comparison-wrapper {
   position: relative;
   margin-bottom: 5px;
   border-radius: 12px;
@@ -1596,21 +1596,21 @@ body {
 }
 
 /* Grid layout for consistent widths */
-.tunman-grid-layout {
+.tanman-grid-layout {
   display: grid;
   grid-template-columns: 35% 16.25% 16.25% 16.25% 16.25%;
   width: 100%;
 }
 
 /* Header row styling */
-.tunman-header-row {
+.tanman-header-row {
   position: relative;
   z-index: 1;
   background-color: #0a0a14;
   /* Same as body background */
 }
 
-.tunman-header-cell {
+.tanman-header-cell {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1619,7 +1619,7 @@ body {
 }
 
 /* Logo styling */
-.tunman-logo-container {
+.tanman-logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1627,7 +1627,7 @@ body {
 
 
 /* Main table styling */
-.tunman-comparison-table {
+.tanman-comparison-table {
   background-color: #13131f;
   border: 1px solid #1e1e2d;
   border-radius: 0 0 12px 12px;
@@ -1635,17 +1635,17 @@ body {
   overflow: hidden;
 }
 
-.tunman-table-row {
+.tanman-table-row {
   display: grid;
   grid-template-columns: 35% 16.25% 16.25% 16.25% 16.25%;
   border-bottom: 1px solid #1e1e2d;
 }
 
-.tunman-table-row:last-child {
+.tanman-table-row:last-child {
   border-bottom: none;
 }
 
-.tunman-feature-cell {
+.tanman-feature-cell {
   padding: 20px;
   display: flex;
   align-items: center;
@@ -1655,7 +1655,7 @@ body {
   box-sizing: border-box;
 }
 
-.tunman-data-cell {
+.tanman-data-cell {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1664,16 +1664,16 @@ body {
   box-sizing: border-box;
 }
 
-.tunman-data-cell:last-child {
+.tanman-data-cell:last-child {
   border-right: none;
 }
 
-.tunman-highlighted-column {
+.tanman-highlighted-column {
   background-color: #1e2252;
 }
 
 /* Special styling for the highlighted header cell */
-.tunman-header-highlighted {
+.tanman-header-highlighted {
   background-color: #1e2252;
   border-radius: 12px 12px 0 0;
   /* Round top corners */
@@ -1682,7 +1682,7 @@ body {
   border-top: 1px solid #1e1e2d;
 }
 
-.tunman-check-icon {
+.tanman-check-icon {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -1695,7 +1695,7 @@ body {
   transition: transform 0.2s ease;
 }
 
-.tunman-x-icon {
+.tanman-x-icon {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -1708,22 +1708,22 @@ body {
   transition: transform 0.2s ease;
 }
 
-.tunman-data-cell:hover .tunman-check-icon,
-.tunman-data-cell:hover .tunman-x-icon {
+.tanman-data-cell:hover .tanman-check-icon,
+.tanman-data-cell:hover .tanman-x-icon {
   transform: scale(1.1);
 }
 
-.tunman-partial-text {
+.tanman-partial-text {
   color: white;
   font-size: 14px;
   transition: opacity 0.2s ease;
 }
 
-.tunman-data-cell:hover .tunman-partial-text {
+.tanman-data-cell:hover .tanman-partial-text {
   opacity: 0.8;
 }
 
-.tunman-footnote {
+.tanman-footnote {
   text-align: right;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
@@ -1731,15 +1731,15 @@ body {
   margin-top: 5px;
 }
 
-.tunman-table-row:hover {
+.tanman-table-row:hover {
   background-color: rgba(255, 255, 255, 0.03);
 }
 
-.tunman-table-row:hover .tunman-highlighted-column {
+.tanman-table-row:hover .tanman-highlighted-column {
   background-color: #232562;
 }
 
-.tunman-text-center {
+.tanman-text-center {
   text-align: center;
 }
 
