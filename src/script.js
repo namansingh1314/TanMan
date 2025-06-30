@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.getElementById("menuToggle");
     const navMenu = document.getElementById("navMenu");
     const modal = document.getElementById("demoModal");
-    const demoButtons = document.querySelectorAll(".btn-text, .demo-button, #navDemoButton"); // Include navbar button
+    const demoButtons = document.querySelectorAll(".btn-text, .demo-button, #navDemoButton"); 
     const closeModal = document.querySelector(".close");
 
     // Close banner functionality
