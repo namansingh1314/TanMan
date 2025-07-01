@@ -1,988 +1,1165 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Land and Expand Component</title>
-  <style>
-    /* Component-specific styles only */
-    .le-container {
-      width: 100%;
-      max-width: 1024px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      color: white;
-      box-sizing: border-box;
-    }
-
-    .le-container * {
-      box-sizing: border-box;
-    }
-
-    /* Card container */
-    .le-card-container {
-      width: 100%;
-      background-color: #1a1a22;
-      border-radius: 12px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 0;
-    }
-
-    /* Toggle switch */
-    .le-toggle-container {
-      position: relative;
-      width: 320px;
-      height: 48px;
-      background-color: #2a2a30;
-      border-radius: 24px;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-    }
-
-    .le-toggle-button {
-      z-index: 10;
-      width: 50%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      background: transparent;
-      color: #9ca3af;
-      font-weight: 500;
-      font-size: 14px;
-      cursor: pointer;
-      transition: color 0.3s ease;
-      margin: 0;
-      padding: 0;
-      font-family: inherit;
-    }
-
-    .le-toggle-button.le-active {
-      color: white;
-    }
-
-    .le-toggle-slider {
-      position: absolute;
-      width: 50%;
-      height: 100%;
-      border-radius: 24px;
-      transition: transform 0.3s ease, background 0.3s ease;
-    }
-
-    .le-toggle-slider.le-land {
-      transform: translateX(0);
-      background: linear-gradient(to right, #5a2ca0, #7a3dce);
-    }
-
-    .le-toggle-slider.le-expand {
-      transform: translateX(100%);
-      background: linear-gradient(to right, #8b0000, #a52a2a);
-    }
-
-    /* Use cases label */
-    .le-use-cases {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-      padding: 0.25rem 1rem;
-      border: 1px solid #3a3a45;
-      border-radius: 9999px;
-      font-size: 12px;
-      text-align: center;
-      width: fit-content;
-    }
-
-    /* Main heading */
-    .le-main-heading {
-      max-width: 28rem;
-      text-align: center;
-      font-size: 2.25rem;
-      font-weight: 700;
-      margin-bottom: 3rem;
-      margin-top: 0;
-      font-family: inherit;
-    }
-
-    /* Cards grid */
-    .le-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      width: 100%;
-      margin-bottom: 3rem;
-    }
-
-    .le-card {
-      display: none;
-      /* Hide all cards by default */
-      flex-direction: column;
-      align-items: center;
-      padding: 1.5rem;
-      border-radius: 8px;
-      background-color: #1e1e26;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin: 0;
-    }
-
-    .le-card.le-visible {
-      display: flex;
-      /* Show only visible cards */
-    }
-
-    .le-card:hover {
-      background-color: #252530;
-    }
-
-    .le-card.le-active.le-land {
-      background: linear-gradient(to bottom right, #5a2ca0, #7a3dce);
-    }
-
-    .le-card.le-active.le-expand {
-      background: linear-gradient(to bottom right, #8b0000, #a52a2a);
-    }
-
-    .le-card-title {
-      margin-bottom: 0.5rem;
-      font-size: 14px;
-      font-weight: 500;
-      margin-top: 0;
-    }
-
-    .le-icon-container {
-      position: relative;
-    }
-
-    .le-dollar-icon {
-      width: 48px;
-      height: 48px;
-      color: #b8a5ff;
-    }
-
-    .le-settings-icon {
-      position: absolute;
-      bottom: -4px;
-      right: -4px;
-      width: 24px;
-      height: 24px;
-      color: #b8a5ff;
-    }
-
-    /* Content section */
-    .le-content-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      width: 100%;
-      align-self: flex-start;
-    }
-
-    .le-left-content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .le-left-heading {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      margin-top: 0;
-      font-family: inherit;
-    }
-
-    .le-left-subheading {
-      font-size: 2.25rem;
-      font-weight: 700;
-      line-height: 1.2;
-      margin: 0;
-      font-family: inherit;
-    }
-
-    .le-right-content {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .le-content-item {
-      padding-bottom: 1.5rem;
-    }
-
-    .le-content-item:last-child {
-      padding-top: 1.5rem;
-      border-top: 1px solid #2a2a30;
-    }
-
-    .le-content-heading {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      margin-top: 0;
-      font-family: inherit;
-    }
-
-    .le-content-description {
-      font-size: 14px;
-      color: #9ca3af;
-      margin: 0;
-    }
-
-    /* SVG Icons */
-    .le-card svg {
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* Mobile accordion styles */
-    .le-mobile-accordion {
-      display: none;
-      /* Hidden by default, shown on mobile */
-      width: 100%;
-      margin-top: 2rem;
-    }
-
-    .le-accordion-item {
-      background-color: #1e1e26;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-    }
-
-    .le-accordion-header {
-      padding: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .le-accordion-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin: 0;
-      margin-bottom: 0.5rem;
-    }
-
-    .le-accordion-subtitle {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .le-accordion-icon {
-      position: absolute;
-      right: 1.5rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 24px;
-      height: 24px;
-      transition: transform 0.3s ease;
-    }
-
-    .le-accordion-icon.le-open {
-      transform: translateY(-50%) rotate(180deg);
-    }
-
-    .le-accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      padding: 0 1.5rem;
-    }
-
-    .le-accordion-content.le-open {
-      max-height: 1000px;
-      /* Large enough to show all content */
-      padding-bottom: 1.5rem;
-    }
-
-    .le-accordion-section {
-      margin-bottom: 1.5rem;
-    }
-
-    .le-accordion-section:last-child {
-      margin-top: 1.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #2a2a30;
-    }
-
-    .le-accordion-section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      margin-top: 0;
-    }
-
-    .le-accordion-section-text {
-      font-size: 14px;
-      color: #9ca3af;
-      margin: 0;
-    }
-
-    .le-accordion-item.le-land {
-      border: 1px solid #5a2ca0;
-    }
-
-    .le-accordion-item.le-expand {
-      border: 1px solid #8b0000;
-    }
-
-    .le-accordion-item.le-land .le-accordion-header {
-      background: linear-gradient(to right, #5a2ca0, #7a3dce);
-    }
-
-    .le-accordion-item.le-expand .le-accordion-header {
-      background: linear-gradient(to right, #8b0000, #a52a2a);
-    }
-
-    /* Media query for mobile */
-    @media (max-width: 768px) {
-
-      .le-cards-grid,
-      .le-content-section {
-        display: none;
-        /* Hide desktop components on mobile */
-      }
-
-      .le-mobile-accordion {
-        display: block;
-        /* Show mobile accordion on mobile */
-      }
-
-      .le-card-container {
-        padding: 1rem;
-      }
-
-      .le-toggle-container {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Land and Expand Component</title>
+    <style>
+      /* Component-specific styles only */
+      .le-container {
         width: 100%;
-        max-width: 320px;
+        max-width: 1024px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        color: white;
+        box-sizing: border-box;
       }
 
-      .le-main-heading {
-        font-size: 1.75rem;
+      .le-container * {
+        box-sizing: border-box;
+      }
+
+      /* Card container */
+      .le-card-container {
+        width: 100%;
+        background-color: #1a1a22;
+        border-radius: 12px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+      }
+
+      /* Toggle switch */
+      .le-toggle-container {
+        position: relative;
+        width: 320px;
+        height: 48px;
+        background-color: #2a2a30;
+        border-radius: 24px;
         margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <div class="le-container">
-    <div class="le-card-container">
-      <!-- Toggle Switch -->
-      <div class="le-toggle-container">
-        <button class="le-toggle-button le-active" data-tab="land">LAND</button>
-        <button class="le-toggle-button" data-tab="expand">EXPAND</button>
-        <div class="le-toggle-slider le-land"></div>
-      </div>
+      .le-toggle-button {
+        z-index: 10;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: transparent;
+        color: #9ca3af;
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        margin: 0;
+        padding: 0;
+        font-family: inherit;
+      }
 
-      <!-- Use Cases Label -->
-      <div class="le-use-cases">Use cases</div>
+      .le-toggle-button.le-active {
+        color: white;
+      }
 
-      <!-- Heading -->
-      <h2 class="le-main-heading">Built to power revenue heroes like you</h2>
+      .le-toggle-slider {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        border-radius: 24px;
+        transition: transform 0.3s ease, background 0.3s ease;
+      }
 
-      <!-- Cards Grid (Desktop) -->
-      <div class="le-cards-grid">
-        <!-- LAND Cards -->
-        <div class="le-card le-land le-visible" data-card="0" data-tab="land">
-          <div class="le-card-title">Sellers</div>
-          <div class="le-icon-container">
-            <svg class="le-dollar-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <svg class="le-settings-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-              </path>
-            </svg>
-          </div>
+      .le-toggle-slider.le-land {
+        transform: translateX(0);
+        background: linear-gradient(to right, #5a2ca0, #7a3dce);
+      }
+
+      .le-toggle-slider.le-expand {
+        transform: translateX(100%);
+        background: linear-gradient(to right, #8b0000, #a52a2a);
+      }
+
+      /* Use cases label */
+      .le-use-cases {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+        padding: 0.25rem 1rem;
+        border: 1px solid #3a3a45;
+        border-radius: 9999px;
+        font-size: 12px;
+        text-align: center;
+        width: fit-content;
+      }
+
+      /* Main heading */
+      .le-main-heading {
+        max-width: 28rem;
+        text-align: center;
+        font-size: 2.25rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        margin-top: 0;
+        font-family: inherit;
+      }
+
+      /* Cards grid */
+      .le-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        width: 100%;
+        margin-bottom: 3rem;
+      }
+
+      .le-card {
+        display: none;
+        /* Hide all cards by default */
+        flex-direction: column;
+        align-items: center;
+        padding: 1.5rem;
+        border-radius: 8px;
+        background-color: #1e1e26;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin: 0;
+      }
+
+      .le-card.le-visible {
+        display: flex;
+        /* Show only visible cards */
+      }
+
+      .le-card:hover {
+        background-color: #252530;
+      }
+
+      .le-card.le-active.le-land {
+        background: linear-gradient(to bottom right, #5a2ca0, #7a3dce);
+      }
+
+      .le-card.le-active.le-expand {
+        background: linear-gradient(to bottom right, #8b0000, #a52a2a);
+      }
+
+      .le-card-title {
+        margin-bottom: 0.5rem;
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 0;
+      }
+
+      .le-icon-container {
+        position: relative;
+      }
+
+      .le-dollar-icon {
+        width: 48px;
+        height: 48px;
+        color: #b8a5ff;
+      }
+
+      .le-settings-icon {
+        position: absolute;
+        bottom: -4px;
+        right: -4px;
+        width: 24px;
+        height: 24px;
+        color: #b8a5ff;
+      }
+
+      /* Content section */
+      .le-content-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        width: 100%;
+        align-self: flex-start;
+      }
+
+      .le-left-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .le-left-heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        font-family: inherit;
+      }
+
+      .le-left-subheading {
+        font-size: 2.25rem;
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0;
+        font-family: inherit;
+      }
+
+      .le-right-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .le-content-item {
+        padding-bottom: 1.5rem;
+      }
+
+      .le-content-item:last-child {
+        padding-top: 1.5rem;
+        border-top: 1px solid #2a2a30;
+      }
+
+      .le-content-heading {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        font-family: inherit;
+      }
+
+      .le-content-description {
+        font-size: 14px;
+        color: #9ca3af;
+        margin: 0;
+      }
+
+      /* SVG Icons */
+      .le-card svg {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Mobile accordion styles */
+      .le-mobile-accordion {
+        display: none;
+        /* Hidden by default, shown on mobile */
+        width: 100%;
+        margin-top: 2rem;
+      }
+
+      .le-accordion-item {
+        background-color: #1e1e26;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+      }
+
+      .le-accordion-header {
+        padding: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+      }
+
+      .le-accordion-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: 0;
+        margin-bottom: 0.5rem;
+      }
+
+      .le-accordion-subtitle {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      .le-accordion-icon {
+        position: absolute;
+        right: 1.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        transition: transform 0.3s ease;
+      }
+
+      .le-accordion-icon.le-open {
+        transform: translateY(-50%) rotate(180deg);
+      }
+
+      .le-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding: 0 1.5rem;
+      }
+
+      .le-accordion-content.le-open {
+        max-height: 1000px;
+        /* Large enough to show all content */
+        padding-bottom: 1.5rem;
+      }
+
+      .le-accordion-section {
+        margin-bottom: 1.5rem;
+      }
+
+      .le-accordion-section:last-child {
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #2a2a30;
+      }
+
+      .le-accordion-section-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+      }
+
+      .le-accordion-section-text {
+        font-size: 14px;
+        color: #9ca3af;
+        margin: 0;
+      }
+
+      .le-accordion-item.le-land {
+        border: 1px solid #5a2ca0;
+      }
+
+      .le-accordion-item.le-expand {
+        border: 1px solid #8b0000;
+      }
+
+      .le-accordion-item.le-land .le-accordion-header {
+        background: linear-gradient(to right, #5a2ca0, #7a3dce);
+      }
+
+      .le-accordion-item.le-expand .le-accordion-header {
+        background: linear-gradient(to right, #8b0000, #a52a2a);
+      }
+
+      /* Media query for mobile */
+      @media (max-width: 768px) {
+        .le-cards-grid,
+        .le-content-section {
+          display: none;
+          /* Hide desktop components on mobile */
+        }
+
+        .le-mobile-accordion {
+          display: block;
+          /* Show mobile accordion on mobile */
+        }
+
+        .le-card-container {
+          padding: 1rem;
+        }
+
+        .le-toggle-container {
+          width: 100%;
+          max-width: 320px;
+        }
+
+        .le-main-heading {
+          font-size: 1.75rem;
+          margin-bottom: 2rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="le-container">
+      <div class="le-card-container">
+        <!-- Toggle Switch -->
+        <div class="le-toggle-container">
+          <button class="le-toggle-button le-active" data-tab="land">
+            LAND
+          </button>
+          <button class="le-toggle-button" data-tab="expand">EXPAND</button>
+          <div class="le-toggle-slider le-land"></div>
         </div>
 
-        <div class="le-card le-land le-visible le-active le-land" data-card="1" data-tab="land">
-          <div class="le-card-title">Sellers</div>
-          <div class="le-icon-container">
-            <svg class="le-dollar-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <svg class="le-settings-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-              </path>
-            </svg>
-          </div>
-        </div>
+        <!-- Use Cases Label -->
+        <div class="le-use-cases">Use cases</div>
 
-        <div class="le-card le-land le-visible" data-card="2" data-tab="land">
-          <div class="le-card-title">Sellers</div>
-          <div class="le-icon-container">
-            <svg class="le-dollar-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <svg class="le-settings-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-              </path>
-            </svg>
-          </div>
-        </div>
+        <!-- Heading -->
+        <h2 class="le-main-heading">Built to power revenue heroes like you</h2>
 
-        <!-- EXPAND Cards -->
-        <div class="le-card le-expand" data-card="0" data-tab="expand">
-          <div class="le-card-title">Sellers</div>
-          <div class="le-icon-container">
-            <svg class="le-dollar-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <svg class="le-settings-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-              </path>
-            </svg>
-          </div>
-        </div>
-
-        <div class="le-card le-expand" data-card="1" data-tab="expand">
-          <div class="le-card-title">Sellers</div>
-          <div class="le-icon-container">
-            <svg class="le-dollar-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <svg class="le-settings-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-              </path>
-            </svg>
-          </div>
-        </div>
-
-        <div class="le-card le-expand" data-card="2" data-tab="expand">
-          <div class="le-card-title">Sellers</div>
-          <div class="le-icon-container">
-            <svg class="le-dollar-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="16"></line>
-              <line x1="8" y1="12" x2="16" y2="12"></line>
-            </svg>
-            <svg class="le-settings-icon" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3"></circle>
-              <path
-                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-              </path>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- Content Section (Desktop) -->
-      <div class="le-content-section">
-        <!-- Left Content -->
-        <div class="le-left-content">
-          <h3 class="le-left-heading">Sellers</h3>
-          <p class="le-left-subheading">Built to power revenue heroes like you</p>
-        </div>
-
-        <!-- Right Content -->
-        <div class="le-right-content">
-          <div class="le-content-item">
-            <h4 class="le-content-heading" id="le-content-heading-1">Built to power revenue heroes like you</h4>
-            <p class="le-content-description" id="le-content-description-1">"MindTickle discovered cross-sell
-              opportunities worth $2.4M with Tanman"</p>
-          </div>
-          <div class="le-content-item">
-            <h4 class="le-content-heading" id="le-content-heading-2">Built to power revenue heroes like you</h4>
-            <p class="le-content-description" id="le-content-description-2">"MindTickle discovered cross-sell
-              opportunities worth $2.4M with Tanman"</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Mobile Accordion -->
-      <div class="le-mobile-accordion">
-        <!-- Land Accordions -->
-        <div id="le-land-accordions">
-          <!-- Land Accordion 1 -->
-          <div class="le-accordion-item le-land" data-index="0" data-tab="land">
-            <div class="le-accordion-header">
-              <h3 class="le-accordion-title">Account Manager</h3>
-              <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
+        <!-- Cards Grid (Desktop) -->
+        <div class="le-cards-grid">
+          <!-- LAND Cards -->
+          <div class="le-card le-land le-visible" data-card="0" data-tab="land">
+            <div class="le-card-title">Sellers</div>
+            <div class="le-icon-container">
+              <svg class="le-dollar-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+              <svg class="le-settings-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
               </svg>
             </div>
-            <div class="le-accordion-content">
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
-                  upfront.</p>
-              </div>
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
-                  and team needs.</p>
-              </div>
+          </div>
+
+          <div
+            class="le-card le-land le-visible le-active le-land"
+            data-card="1"
+            data-tab="land"
+          >
+            <div class="le-card-title">Sellers</div>
+            <div class="le-icon-container">
+              <svg class="le-dollar-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+              <svg class="le-settings-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
+              </svg>
             </div>
           </div>
 
-          <!-- Land Accordion 2 -->
-          <div class="le-accordion-item le-land" data-index="1" data-tab="land">
-            <div class="le-accordion-header">
-              <h3 class="le-accordion-title">Account Manager</h3>
-              <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
+          <div class="le-card le-land le-visible" data-card="2" data-tab="land">
+            <div class="le-card-title">Sellers</div>
+            <div class="le-icon-container">
+              <svg class="le-dollar-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
               </svg>
-            </div>
-            <div class="le-accordion-content">
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
-                  upfront.</p>
-              </div>
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
-                  and team needs.</p>
-              </div>
+              <svg class="le-settings-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
+              </svg>
             </div>
           </div>
 
-          <!-- Land Accordion 3 -->
-          <div class="le-accordion-item le-land" data-index="2" data-tab="land">
-            <div class="le-accordion-header">
-              <h3 class="le-accordion-title">Account Manager</h3>
-              <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
+          <!-- EXPAND Cards -->
+          <div class="le-card le-expand" data-card="0" data-tab="expand">
+            <div class="le-card-title">Sellers</div>
+            <div class="le-icon-container">
+              <svg class="le-dollar-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+              <svg class="le-settings-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
               </svg>
             </div>
-            <div class="le-accordion-content">
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
-                  upfront.</p>
-              </div>
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
-                  and team needs.</p>
-              </div>
+          </div>
+
+          <div class="le-card le-expand" data-card="1" data-tab="expand">
+            <div class="le-card-title">Sellers</div>
+            <div class="le-icon-container">
+              <svg class="le-dollar-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+              <svg class="le-settings-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+
+          <div class="le-card le-expand" data-card="2" data-tab="expand">
+            <div class="le-card-title">Sellers</div>
+            <div class="le-icon-container">
+              <svg class="le-dollar-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+              <svg class="le-settings-icon" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+                ></path>
+              </svg>
             </div>
           </div>
         </div>
 
-        <!-- Expand Accordions -->
-        <div id="le-expand-accordions" style="display: none;">
-          <!-- Expand Accordion 1 -->
-          <div class="le-accordion-item le-expand" data-index="0" data-tab="expand">
-            <div class="le-accordion-header">
-              <h3 class="le-accordion-title">Account Manager</h3>
-              <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
+        <!-- Content Section (Desktop) -->
+        <div class="le-content-section">
+          <!-- Left Content -->
+          <div class="le-left-content">
+            <h3 class="le-left-heading">Sellers</h3>
+            <p class="le-left-subheading">
+              Built to power revenue heroes like you
+            </p>
+          </div>
+
+          <!-- Right Content -->
+          <div class="le-right-content">
+            <div class="le-content-item">
+              <h4 class="le-content-heading" id="le-content-heading-1">
+                Built to power revenue heroes like you
+              </h4>
+              <p class="le-content-description" id="le-content-description-1">
+                "MindTickle discovered cross-sell opportunities worth $2.4M with
+                Tanman"
+              </p>
             </div>
-            <div class="le-accordion-content">
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
-                  upfront.</p>
+            <div class="le-content-item">
+              <h4 class="le-content-heading" id="le-content-heading-2">
+                Built to power revenue heroes like you
+              </h4>
+              <p class="le-content-description" id="le-content-description-2">
+                "MindTickle discovered cross-sell opportunities worth $2.4M with
+                Tanman"
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Accordion -->
+        <div class="le-mobile-accordion">
+          <!-- Land Accordions -->
+          <div id="le-land-accordions">
+            <!-- Land Accordion 1 -->
+            <div
+              class="le-accordion-item le-land"
+              data-index="0"
+              data-tab="land"
+            >
+              <div class="le-accordion-header">
+                <h3 class="le-accordion-title">Account Manager</h3>
+                <p class="le-accordion-subtitle">Managing accounts made easy</p>
+                <svg
+                  class="le-accordion-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
               </div>
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
-                  and team needs.</p>
+              <div class="le-accordion-content">
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    No More Blind Spots
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Identify all buying entities, hidden champions, and budget
+                    owners upfront.
+                  </p>
+                </div>
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    Close Expansion Deals Faster
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Walk into every meeting with pre-warmed insights on
+                    decision-makers and team needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Land Accordion 2 -->
+            <div
+              class="le-accordion-item le-land"
+              data-index="1"
+              data-tab="land"
+            >
+              <div class="le-accordion-header">
+                <h3 class="le-accordion-title">Account Manager</h3>
+                <p class="le-accordion-subtitle">Managing accounts made easy</p>
+                <svg
+                  class="le-accordion-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+              <div class="le-accordion-content">
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    No More Blind Spots
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Identify all buying entities, hidden champions, and budget
+                    owners upfront.
+                  </p>
+                </div>
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    Close Expansion Deals Faster
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Walk into every meeting with pre-warmed insights on
+                    decision-makers and team needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Land Accordion 3 -->
+            <div
+              class="le-accordion-item le-land"
+              data-index="2"
+              data-tab="land"
+            >
+              <div class="le-accordion-header">
+                <h3 class="le-accordion-title">Account Manager</h3>
+                <p class="le-accordion-subtitle">Managing accounts made easy</p>
+                <svg
+                  class="le-accordion-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+              <div class="le-accordion-content">
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    No More Blind Spots
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Identify all buying entities, hidden champions, and budget
+                    owners upfront.
+                  </p>
+                </div>
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    Close Expansion Deals Faster
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Walk into every meeting with pre-warmed insights on
+                    decision-makers and team needs.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Expand Accordion 2 -->
-          <div class="le-accordion-item le-expand" data-index="1" data-tab="expand">
-            <div class="le-accordion-header">
-              <h3 class="le-accordion-title">Account Manager</h3>
-              <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-            <div class="le-accordion-content">
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
-                  upfront.</p>
+          <!-- Expand Accordions -->
+          <div id="le-expand-accordions" style="display: none">
+            <!-- Expand Accordion 1 -->
+            <div
+              class="le-accordion-item le-expand"
+              data-index="0"
+              data-tab="expand"
+            >
+              <div class="le-accordion-header">
+                <h3 class="le-accordion-title">Account Manager</h3>
+                <p class="le-accordion-subtitle">Managing accounts made easy</p>
+                <svg
+                  class="le-accordion-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
               </div>
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
-                  and team needs.</p>
+              <div class="le-accordion-content">
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    No More Blind Spots
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Identify all buying entities, hidden champions, and budget
+                    owners upfront.
+                  </p>
+                </div>
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    Close Expansion Deals Faster
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Walk into every meeting with pre-warmed insights on
+                    decision-makers and team needs.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Expand Accordion 3 -->
-          <div class="le-accordion-item le-expand" data-index="2" data-tab="expand">
-            <div class="le-accordion-header">
-              <h3 class="le-accordion-title">Account Manager</h3>
-              <p class="le-accordion-subtitle">Managing accounts made easy</p>
-              <svg class="le-accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-            <div class="le-accordion-content">
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">No More Blind Spots</h4>
-                <p class="le-accordion-section-text">Identify all buying entities, hidden champions, and budget owners
-                  upfront.</p>
+            <!-- Expand Accordion 2 -->
+            <div
+              class="le-accordion-item le-expand"
+              data-index="1"
+              data-tab="expand"
+            >
+              <div class="le-accordion-header">
+                <h3 class="le-accordion-title">Account Manager</h3>
+                <p class="le-accordion-subtitle">Managing accounts made easy</p>
+                <svg
+                  class="le-accordion-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
               </div>
-              <div class="le-accordion-section">
-                <h4 class="le-accordion-section-title">Close Expansion Deals Faster</h4>
-                <p class="le-accordion-section-text">Walk into every meeting with pre-warmed insights on decision-makers
-                  and team needs.</p>
+              <div class="le-accordion-content">
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    No More Blind Spots
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Identify all buying entities, hidden champions, and budget
+                    owners upfront.
+                  </p>
+                </div>
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    Close Expansion Deals Faster
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Walk into every meeting with pre-warmed insights on
+                    decision-makers and team needs.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Expand Accordion 3 -->
+            <div
+              class="le-accordion-item le-expand"
+              data-index="2"
+              data-tab="expand"
+            >
+              <div class="le-accordion-header">
+                <h3 class="le-accordion-title">Account Manager</h3>
+                <p class="le-accordion-subtitle">Managing accounts made easy</p>
+                <svg
+                  class="le-accordion-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+              <div class="le-accordion-content">
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    No More Blind Spots
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Identify all buying entities, hidden champions, and budget
+                    owners upfront.
+                  </p>
+                </div>
+                <div class="le-accordion-section">
+                  <h4 class="le-accordion-section-title">
+                    Close Expansion Deals Faster
+                  </h4>
+                  <p class="le-accordion-section-text">
+                    Walk into every meeting with pre-warmed insights on
+                    decision-makers and team needs.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    // EASILY EDITABLE CONTENT - Modify these messages as needed
-    // ========================================================
+    <script>
+      // EASILY EDITABLE CONTENT - Modify these messages as needed
+      // ========================================================
 
-    // Content for LAND tab cards
-    const leCardContentsLand = [
-      {
-        title: "Land Card 1 Title",
-        leftSubheading: "Land Card 1 Subheading: Revenue heroes start here",
-        contentHeading1: "Land Card 1 Content Heading 1",
-        contentDescription1: "Land Card 1 Content Description 1: MindTickle discovered new opportunities worth $2.4M with Tanman",
-        contentHeading2: "Land Card 1 Content Heading 2",
-        contentDescription2: "Land Card 1 Content Description 2: Unique selling proposition for first-time customers"
-      },
-      {
-        title: "Land Card 2 Title",
-        leftSubheading: "Land Card 2 Subheading: Built to power revenue heroes like you",
-        contentHeading1: "Land Card 2 Content Heading 1",
-        contentDescription1: "Land Card 2 Content Description 1: Acme Corp increased conversion rates by 35% in the first quarter",
-        contentHeading2: "Land Card 2 Content Heading 2",
-        contentDescription2: "Land Card 2 Content Description 2: Streamlined onboarding process with proven results"
-      },
-      {
-        title: "Land Card 3 Title",
-        leftSubheading: "Land Card 3 Subheading: Accelerate your sales cycle",
-        contentHeading1: "Land Card 3 Content Heading 1",
-        contentDescription1: "Land Card 3 Content Description 1: TechGiant reduced sales cycle by 40% with our platform",
-        contentHeading2: "Land Card 3 Content Heading 2",
-        contentDescription2: "Land Card 3 Content Description 2: Comprehensive tools for initial customer acquisition"
-      }
-    ];
+      // Content for LAND tab cards
+      const leCardContentsLand = [
+        {
+          title: "Land Card 1 Title",
+          leftSubheading: "Land Card 1 Subheading: Revenue heroes start here",
+          contentHeading1: "Land Card 1 Content Heading 1",
+          contentDescription1:
+            "Land Card 1 Content Description 1: MindTickle discovered new opportunities worth $2.4M with Tanman",
+          contentHeading2: "Land Card 1 Content Heading 2",
+          contentDescription2:
+            "Land Card 1 Content Description 2: Unique selling proposition for first-time customers",
+        },
+        {
+          title: "Land Card 2 Title",
+          leftSubheading:
+            "Land Card 2 Subheading: Built to power revenue heroes like you",
+          contentHeading1: "Land Card 2 Content Heading 1",
+          contentDescription1:
+            "Land Card 2 Content Description 1: Acme Corp increased conversion rates by 35% in the first quarter",
+          contentHeading2: "Land Card 2 Content Heading 2",
+          contentDescription2:
+            "Land Card 2 Content Description 2: Streamlined onboarding process with proven results",
+        },
+        {
+          title: "Land Card 3 Title",
+          leftSubheading: "Land Card 3 Subheading: Accelerate your sales cycle",
+          contentHeading1: "Land Card 3 Content Heading 1",
+          contentDescription1:
+            "Land Card 3 Content Description 1: TechGiant reduced sales cycle by 40% with our platform",
+          contentHeading2: "Land Card 3 Content Heading 2",
+          contentDescription2:
+            "Land Card 3 Content Description 2: Comprehensive tools for initial customer acquisition",
+        },
+      ];
 
-    // Content for EXPAND tab cards
-    const leCardContentsExpand = [
-      {
-        title: "Expand Card 1 Title",
-        leftSubheading: "Expand Card 1 Subheading: Grow existing accounts",
-        contentHeading1: "Expand Card 1 Content Heading 1",
-        contentDescription1: "Expand Card 1 Content Description 1: SaaS Leader increased customer lifetime value by 75%",
-        contentHeading2: "Expand Card 1 Content Heading 2",
-        contentDescription2: "Expand Card 1 Content Description 2: Identify upsell opportunities with AI-powered insights"
-      },
-      {
-        title: "Expand Card 2 Title",
-        leftSubheading: "Expand Card 2 Subheading: Maximize customer retention",
-        contentHeading1: "Expand Card 2 Content Heading 1",
-        contentDescription1: "Expand Card 2 Content Description 1: Enterprise Solutions reduced churn by 25% in six months",
-        contentHeading2: "Expand Card 2 Content Heading 2",
-        contentDescription2: "Expand Card 2 Content Description 2: Proactive customer success strategies that drive growth"
-      },
-      {
-        title: "Expand Card 3 Title",
-        leftSubheading: "Expand Card 3 Subheading: Scale your customer base",
-        contentHeading1: "Expand Card 3 Content Heading 1",
-        contentDescription1: "Expand Card 3 Content Description 1: Global Inc. expanded to 3 new markets with our platform",
-        contentHeading2: "Expand Card 3 Content Heading 2",
-        contentDescription2: "Expand Card 3 Content Description 2: Cross-selling tools that identify perfect expansion timing"
-      }
-    ];
+      // Content for EXPAND tab cards
+      const leCardContentsExpand = [
+        {
+          title: "Expand Card 1 Title",
+          leftSubheading: "Expand Card 1 Subheading: Grow existing accounts",
+          contentHeading1: "Expand Card 1 Content Heading 1",
+          contentDescription1:
+            "Expand Card 1 Content Description 1: SaaS Leader increased customer lifetime value by 75%",
+          contentHeading2: "Expand Card 1 Content Heading 2",
+          contentDescription2:
+            "Expand Card 1 Content Description 2: Identify upsell opportunities with AI-powered insights",
+        },
+        {
+          title: "Expand Card 2 Title",
+          leftSubheading:
+            "Expand Card 2 Subheading: Maximize customer retention",
+          contentHeading1: "Expand Card 2 Content Heading 1",
+          contentDescription1:
+            "Expand Card 2 Content Description 1: Enterprise Solutions reduced churn by 25% in six months",
+          contentHeading2: "Expand Card 2 Content Heading 2",
+          contentDescription2:
+            "Expand Card 2 Content Description 2: Proactive customer success strategies that drive growth",
+        },
+        {
+          title: "Expand Card 3 Title",
+          leftSubheading: "Expand Card 3 Subheading: Scale your customer base",
+          contentHeading1: "Expand Card 3 Content Heading 1",
+          contentDescription1:
+            "Expand Card 3 Content Description 1: Global Inc. expanded to 3 new markets with our platform",
+          contentHeading2: "Expand Card 3 Content Heading 2",
+          contentDescription2:
+            "Expand Card 3 Content Description 2: Cross-selling tools that identify perfect expansion timing",
+        },
+      ];
 
-    // Mobile accordion content
-    const leAccordionContentsLand = [
-      {
-        title: "Account Manager",
-        subtitle: "Managing accounts made easy",
-        section1Title: "No More Blind Spots",
-        section1Text: "Identify all buying entities, hidden champions, and budget owners upfront.",
-        section2Title: "Close Expansion Deals Faster",
-        section2Text: "Walk into every meeting with pre-warmed insights on decision-makers and team needs."
-      },
-      {
-        title: "Sales Representative",
-        subtitle: "Closing deals with confidence",
-        section1Title: "Personalized Outreach",
-        section1Text: "Create tailored messaging that resonates with each prospect's specific needs.",
-        section2Title: "Streamlined Pipeline",
-        section2Text: "Prioritize leads with the highest conversion potential based on behavioral data."
-      },
-      {
-        title: "Marketing Specialist",
-        subtitle: "Generating qualified leads",
-        section1Title: "Campaign Optimization",
-        section1Text: "Track performance metrics in real-time to adjust strategies for maximum impact.",
-        section2Title: "Content Personalization",
-        section2Text: "Deliver the right content to the right audience at the perfect moment in their journey."
-      }
-    ];
+      // Mobile accordion content
+      const leAccordionContentsLand = [
+        {
+          title: "Account Manager",
+          subtitle: "Managing accounts made easy",
+          section1Title: "No More Blind Spots",
+          section1Text:
+            "Identify all buying entities, hidden champions, and budget owners upfront.",
+          section2Title: "Close Expansion Deals Faster",
+          section2Text:
+            "Walk into every meeting with pre-warmed insights on decision-makers and team needs.",
+        },
+        {
+          title: "Sales Representative",
+          subtitle: "Closing deals with confidence",
+          section1Title: "Personalized Outreach",
+          section1Text:
+            "Create tailored messaging that resonates with each prospect's specific needs.",
+          section2Title: "Streamlined Pipeline",
+          section2Text:
+            "Prioritize leads with the highest conversion potential based on behavioral data.",
+        },
+        {
+          title: "Marketing Specialist",
+          subtitle: "Generating qualified leads",
+          section1Title: "Campaign Optimization",
+          section1Text:
+            "Track performance metrics in real-time to adjust strategies for maximum impact.",
+          section2Title: "Content Personalization",
+          section2Text:
+            "Deliver the right content to the right audience at the perfect moment in their journey.",
+        },
+      ];
 
-    const leAccordionContentsExpand = [
-      {
-        title: "Customer Success",
-        subtitle: "Growing existing relationships",
-        section1Title: "Proactive Engagement",
-        section1Text: "Identify at-risk accounts before they churn with early warning indicators.",
-        section2Title: "Value Realization",
-        section2Text: "Help customers achieve their goals faster with guided implementation paths."
-      },
-      {
-        title: "Account Executive",
-        subtitle: "Expanding customer footprint",
-        section1Title: "Cross-Sell Opportunities",
-        section1Text: "Discover complementary products that solve additional customer challenges.",
-        section2Title: "Upsell Timing",
-        section2Text: "Identify the perfect moment to suggest premium features based on usage patterns."
-      },
-      {
-        title: "Revenue Operations",
-        subtitle: "Optimizing the revenue engine",
-        section1Title: "Forecasting Accuracy",
-        section1Text: "Predict expansion revenue with greater precision using AI-powered analytics.",
-        section2Title: "Process Automation",
-        section2Text: "Eliminate manual tasks to let your team focus on high-value customer interactions."
-      }
-    ];
-    // ========================================================
+      const leAccordionContentsExpand = [
+        {
+          title: "Customer Success",
+          subtitle: "Growing existing relationships",
+          section1Title: "Proactive Engagement",
+          section1Text:
+            "Identify at-risk accounts before they churn with early warning indicators.",
+          section2Title: "Value Realization",
+          section2Text:
+            "Help customers achieve their goals faster with guided implementation paths.",
+        },
+        {
+          title: "Account Executive",
+          subtitle: "Expanding customer footprint",
+          section1Title: "Cross-Sell Opportunities",
+          section1Text:
+            "Discover complementary products that solve additional customer challenges.",
+          section2Title: "Upsell Timing",
+          section2Text:
+            "Identify the perfect moment to suggest premium features based on usage patterns.",
+        },
+        {
+          title: "Revenue Operations",
+          subtitle: "Optimizing the revenue engine",
+          section1Title: "Forecasting Accuracy",
+          section1Text:
+            "Predict expansion revenue with greater precision using AI-powered analytics.",
+          section2Title: "Process Automation",
+          section2Text:
+            "Eliminate manual tasks to let your team focus on high-value customer interactions.",
+        },
+      ];
+      // ========================================================
 
-    // DOM elements
-    const leToggleButtons = document.querySelectorAll('.le-toggle-button');
-    const leToggleSlider = document.querySelector('.le-toggle-slider');
-    const leCards = document.querySelectorAll('.le-card');
-    const leContentHeading1 = document.getElementById('le-content-heading-1');
-    const leContentDescription1 = document.getElementById('le-content-description-1');
-    const leContentHeading2 = document.getElementById('le-content-heading-2');
-    const leContentDescription2 = document.getElementById('le-content-description-2');
-    const leLandAccordions = document.getElementById('le-land-accordions');
-    const leExpandAccordions = document.getElementById('le-expand-accordions');
-    const leAccordionHeaders = document.querySelectorAll('.le-accordion-header');
-    const leAccordionItems = document.querySelectorAll('.le-accordion-item');
+      // DOM elements
+      const leToggleButtons = document.querySelectorAll(".le-toggle-button");
+      const leToggleSlider = document.querySelector(".le-toggle-slider");
+      const leCards = document.querySelectorAll(".le-card");
+      const leContentHeading1 = document.getElementById("le-content-heading-1");
+      const leContentDescription1 = document.getElementById(
+        "le-content-description-1"
+      );
+      const leContentHeading2 = document.getElementById("le-content-heading-2");
+      const leContentDescription2 = document.getElementById(
+        "le-content-description-2"
+      );
+      const leLandAccordions = document.getElementById("le-land-accordions");
+      const leExpandAccordions = document.getElementById(
+        "le-expand-accordions"
+      );
+      const leAccordionHeaders = document.querySelectorAll(
+        ".le-accordion-header"
+      );
+      const leAccordionItems = document.querySelectorAll(".le-accordion-item");
 
-    // Current state
-    let leActiveTab = 'land';
-    let leActiveCardIndex = 1; // Default to the middle card (index 1)
+      // Current state
+      let leActiveTab = "land";
+      let leActiveCardIndex = 1; // Default to the middle card (index 1)
 
-    // Initialize content
-    leUpdateContent(leActiveTab, leActiveCardIndex);
-    leUpdateMobileAccordions();
+      // Initialize content
+      leUpdateContent(leActiveTab, leActiveCardIndex);
+      leUpdateMobileAccordions();
 
-    // Toggle button click handler
-    leToggleButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const tab = button.getAttribute('data-tab');
+      // Toggle button click handler
+      leToggleButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const tab = button.getAttribute("data-tab");
 
-        if (tab !== leActiveTab) {
-          // Update active tab
-          leActiveTab = tab;
+          if (tab !== leActiveTab) {
+            // Update active tab
+            leActiveTab = tab;
 
-          // Update toggle buttons
-          leToggleButtons.forEach(btn => {
-            if (btn.getAttribute('data-tab') === leActiveTab) {
-              btn.classList.add('le-active');
-            } else {
-              btn.classList.remove('le-active');
-            }
-          });
+            // Update toggle buttons
+            leToggleButtons.forEach((btn) => {
+              if (btn.getAttribute("data-tab") === leActiveTab) {
+                btn.classList.add("le-active");
+              } else {
+                btn.classList.remove("le-active");
+              }
+            });
 
-          // Update toggle slider
-          leToggleSlider.className = `le-toggle-slider le-${leActiveTab}`;
+            // Update toggle slider
+            leToggleSlider.className = `le-toggle-slider le-${leActiveTab}`;
 
-          // Show/hide cards based on active tab
-          leCards.forEach(card => {
-            const cardTab = card.getAttribute('data-tab');
+            // Show/hide cards based on active tab
+            leCards.forEach((card) => {
+              const cardTab = card.getAttribute("data-tab");
 
-            if (cardTab === leActiveTab) {
-              card.classList.add('le-visible');
-            } else {
-              card.classList.remove('le-visible', 'le-active');
-            }
-          });
+              if (cardTab === leActiveTab) {
+                card.classList.add("le-visible");
+              } else {
+                card.classList.remove("le-visible", "le-active");
+              }
+            });
 
-          // Reset active card index to first card of the tab
-          leActiveCardIndex = 0;
+            // Reset active card index to first card of the tab
+            leActiveCardIndex = 0;
 
-          // Update card styles and content
-          leUpdateCardStyles();
-          leUpdateContent(leActiveTab, leActiveCardIndex);
+            // Update card styles and content
+            leUpdateCardStyles();
+            leUpdateContent(leActiveTab, leActiveCardIndex);
 
-          // Update mobile accordions
-          leUpdateMobileAccordions();
-        }
+            // Update mobile accordions
+            leUpdateMobileAccordions();
+          }
+        });
       });
-    });
 
-    // Card click handler
-    leCards.forEach(card => {
-      card.addEventListener('click', () => {
-        const cardIndex = parseInt(card.getAttribute('data-card'));
-        const cardTab = card.getAttribute('data-tab');
+      // Card click handler
+      leCards.forEach((card) => {
+        card.addEventListener("click", () => {
+          const cardIndex = parseInt(card.getAttribute("data-card"));
+          const cardTab = card.getAttribute("data-tab");
 
-        if (cardTab === leActiveTab && cardIndex !== leActiveCardIndex) {
-          // Update active card index
-          leActiveCardIndex = cardIndex;
+          if (cardTab === leActiveTab && cardIndex !== leActiveCardIndex) {
+            // Update active card index
+            leActiveCardIndex = cardIndex;
 
-          // Update card styles
-          leUpdateCardStyles();
+            // Update card styles
+            leUpdateCardStyles();
 
-          // Update content
-          leUpdateContent(leActiveTab, leActiveCardIndex);
-        }
+            // Update content
+            leUpdateContent(leActiveTab, leActiveCardIndex);
+          }
+        });
       });
-    });
 
-    // Accordion click handler
-    leAccordionHeaders.forEach(header => {
-      header.addEventListener('click', () => {
-        const accordionContent = header.nextElementSibling;
-        const accordionIcon = header.querySelector('.le-accordion-icon');
+      // Accordion click handler
+      leAccordionHeaders.forEach((header) => {
+        header.addEventListener("click", () => {
+          const accordionContent = header.nextElementSibling;
+          const accordionIcon = header.querySelector(".le-accordion-icon");
 
-        // Toggle the accordion content
-        if (accordionContent.classList.contains('le-open')) {
-          accordionContent.classList.remove('le-open');
-          accordionIcon.classList.remove('le-open');
+          // Toggle the accordion content
+          if (accordionContent.classList.contains("le-open")) {
+            accordionContent.classList.remove("le-open");
+            accordionIcon.classList.remove("le-open");
+          } else {
+            // Close all other accordions first
+            document
+              .querySelectorAll(".le-accordion-content")
+              .forEach((content) => {
+                content.classList.remove("le-open");
+              });
+            document.querySelectorAll(".le-accordion-icon").forEach((icon) => {
+              icon.classList.remove("le-open");
+            });
+
+            // Open this accordion
+            accordionContent.classList.add("le-open");
+            accordionIcon.classList.add("le-open");
+          }
+        });
+      });
+
+      // Update card styles based on active tab and card
+      function leUpdateCardStyles() {
+        leCards.forEach((card) => {
+          const cardIndex = parseInt(card.getAttribute("data-card"));
+          const cardTab = card.getAttribute("data-tab");
+
+          // Remove all active classes
+          card.classList.remove("le-active", "le-land", "le-expand");
+
+          // Add active class if this is the active card in the active tab
+          if (cardTab === leActiveTab && cardIndex === leActiveCardIndex) {
+            card.classList.add("le-active", `le-${leActiveTab}`);
+          }
+        });
+      }
+
+      // Update content based on active tab and card
+      function leUpdateContent(tab, cardIndex) {
+        // Get the appropriate content based on the active tab
+        const content =
+          tab === "land"
+            ? leCardContentsLand[cardIndex]
+            : leCardContentsExpand[cardIndex];
+
+        // Get the left subheading element
+        const leLeftSubheading = document.querySelector(".le-left-subheading");
+
+        // Update all content elements
+        leLeftSubheading.textContent = content.leftSubheading;
+        leContentHeading1.textContent = content.contentHeading1;
+        leContentDescription1.textContent = content.contentDescription1;
+        leContentHeading2.textContent = content.contentHeading2;
+        leContentDescription2.textContent = content.contentDescription2;
+      }
+
+      // Update mobile accordions based on active tab
+      function leUpdateMobileAccordions() {
+        if (leActiveTab === "land") {
+          leLandAccordions.style.display = "block";
+          leExpandAccordions.style.display = "none";
+
+          // Update land accordion content
+          updateAccordionContent(leAccordionContentsLand, "land");
         } else {
-          // Close all other accordions first
-          document.querySelectorAll('.le-accordion-content').forEach(content => {
-            content.classList.remove('le-open');
-          });
-          document.querySelectorAll('.le-accordion-icon').forEach(icon => {
-            icon.classList.remove('le-open');
-          });
+          leLandAccordions.style.display = "none";
+          leExpandAccordions.style.display = "block";
 
-          // Open this accordion
-          accordionContent.classList.add('le-open');
-          accordionIcon.classList.add('le-open');
+          // Update expand accordion content
+          updateAccordionContent(leAccordionContentsExpand, "expand");
         }
-      });
-    });
-
-    // Update card styles based on active tab and card
-    function leUpdateCardStyles() {
-      leCards.forEach(card => {
-        const cardIndex = parseInt(card.getAttribute('data-card'));
-        const cardTab = card.getAttribute('data-tab');
-
-        // Remove all active classes
-        card.classList.remove('le-active', 'le-land', 'le-expand');
-
-        // Add active class if this is the active card in the active tab
-        if (cardTab === leActiveTab && cardIndex === leActiveCardIndex) {
-          card.classList.add('le-active', `le-${leActiveTab}`);
-        }
-      });
-    }
-
-    // Update content based on active tab and card
-    function leUpdateContent(tab, cardIndex) {
-      // Get the appropriate content based on the active tab
-      const content = tab === 'land' ? leCardContentsLand[cardIndex] : leCardContentsExpand[cardIndex];
-
-      // Get the left subheading element
-      const leLeftSubheading = document.querySelector('.le-left-subheading');
-
-      // Update all content elements
-      leLeftSubheading.textContent = content.leftSubheading;
-      leContentHeading1.textContent = content.contentHeading1;
-      leContentDescription1.textContent = content.contentDescription1;
-      leContentHeading2.textContent = content.contentHeading2;
-      leContentDescription2.textContent = content.contentDescription2;
-    }
-
-    // Update mobile accordions based on active tab
-    function leUpdateMobileAccordions() {
-      if (leActiveTab === 'land') {
-        leLandAccordions.style.display = 'block';
-        leExpandAccordions.style.display = 'none';
-
-        // Update land accordion content
-        updateAccordionContent(leAccordionContentsLand, 'land');
-      } else {
-        leLandAccordions.style.display = 'none';
-        leExpandAccordions.style.display = 'block';
-
-        // Update expand accordion content
-        updateAccordionContent(leAccordionContentsExpand, 'expand');
       }
-    }
 
-    // Update accordion content
-    function updateAccordionContent(contentArray, tab) {
-      const accordions = document.querySelectorAll(`.le-accordion-item[data-tab="${tab}"]`);
+      // Update accordion content
+      function updateAccordionContent(contentArray, tab) {
+        const accordions = document.querySelectorAll(
+          `.le-accordion-item[data-tab="${tab}"]`
+        );
 
-      accordions.forEach((accordion, index) => {
-        const content = contentArray[index];
-        const title = accordion.querySelector('.le-accordion-title');
-        const subtitle = accordion.querySelector('.le-accordion-subtitle');
-        const section1Title = accordion.querySelector('.le-accordion-section:first-child .le-accordion-section-title');
-        const section1Text = accordion.querySelector('.le-accordion-section:first-child .le-accordion-section-text');
-        const section2Title = accordion.querySelector('.le-accordion-section:last-child .le-accordion-section-title');
-        const section2Text = accordion.querySelector('.le-accordion-section:last-child .le-accordion-section-text');
+        accordions.forEach((accordion, index) => {
+          const content = contentArray[index];
+          const title = accordion.querySelector(".le-accordion-title");
+          const subtitle = accordion.querySelector(".le-accordion-subtitle");
+          const section1Title = accordion.querySelector(
+            ".le-accordion-section:first-child .le-accordion-section-title"
+          );
+          const section1Text = accordion.querySelector(
+            ".le-accordion-section:first-child .le-accordion-section-text"
+          );
+          const section2Title = accordion.querySelector(
+            ".le-accordion-section:last-child .le-accordion-section-title"
+          );
+          const section2Text = accordion.querySelector(
+            ".le-accordion-section:last-child .le-accordion-section-text"
+          );
 
-        title.textContent = content.title;
-        subtitle.textContent = content.subtitle;
-        section1Title.textContent = content.section1Title;
-        section1Text.textContent = content.section1Text;
-        section2Title.textContent = content.section2Title;
-        section2Text.textContent = content.section2Text;
-      });
-    }
+          title.textContent = content.title;
+          subtitle.textContent = content.subtitle;
+          section1Title.textContent = content.section1Title;
+          section1Text.textContent = content.section1Text;
+          section2Title.textContent = content.section2Title;
+          section2Text.textContent = content.section2Text;
+        });
+      }
 
-    // Initialize the first card as active
-    leUpdateCardStyles();
+      // Initialize the first card as active
+      leUpdateCardStyles();
 
-    // Initialize mobile accordions with content
-    updateAccordionContent(leAccordionContentsLand, 'land');
-    updateAccordionContent(leAccordionContentsExpand, 'expand');
-  </script>
-</body>
-
+      // Initialize mobile accordions with content
+      updateAccordionContent(leAccordionContentsLand, "land");
+      updateAccordionContent(leAccordionContentsExpand, "expand");
+    </script>
+  </body>
 </html>
