@@ -134,11 +134,9 @@ body {
 }
 
 .hero {
-  background: radial-gradient(
-      43.15% 76.82% at 78.12% 71.24%,
+  background: radial-gradient(43.15% 76.82% at 78.12% 71.24%,
       #2a30b2 0%,
-      rgba(172, 171, 251, 0) 100%
-    ),
+      rgba(172, 171, 251, 0) 100%),
     linear-gradient(0deg, #070a1e, #070a1e), #ffffff;
   min-height: 50vh;
   padding: 1rem;
@@ -1524,6 +1522,7 @@ body {
 
 /* Media query for mobile */
 @media (max-width: 768px) {
+
   .le-cards-grid,
   .le-content-section {
     display: none;
@@ -1668,12 +1667,10 @@ body {
   color: white;
   transition: all 0.3s ease;
   border: 1px solid transparent;
-  background: linear-gradient(
-    130deg,
-    rgba(191, 142, 255, 0.199) 15%,
-    rgba(138, 75, 222, 0.02) 40%,
-    rgba(46, 33, 64, 0.06) 80%
-  );
+  background: linear-gradient(130deg,
+      rgba(191, 142, 255, 0.199) 15%,
+      rgba(138, 75, 222, 0.02) 40%,
+      rgba(46, 33, 64, 0.06) 80%);
 }
 
 .pricing-section .pricing-card:hover {
@@ -2323,7 +2320,7 @@ body {
 }
 
 /* Container styles */
-.nrev-container {
+.tanman-container {
   max-width: 1200px;
   margin: 0 auto;
   margin-bottom: 4rem;
@@ -2331,12 +2328,12 @@ body {
 }
 
 /* Header styles */
-.nrev-header {
+.tanman-header {
   text-align: center;
   margin-bottom: 3rem;
 }
 
-.nrev-solution-badge {
+.tanman-solution-badge {
   display: inline-block;
   padding: 0.5rem 1.5rem;
   border: 1px solid #333;
@@ -2345,7 +2342,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.nrev-title {
+.tanman-title {
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 2rem;
@@ -2353,15 +2350,16 @@ body {
 }
 
 /* Grid layout */
-.nrev-grid {
+.tanman-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
+
   /* First row: 60/40 split */
-  .nrev-row-1 {
+  .tanman-row-1 {
     display: grid;
     grid-template-columns: 60fr 40fr;
     gap: 1.5rem;
@@ -2369,7 +2367,7 @@ body {
   }
 
   /* Second row: 40/60 split */
-  .nrev-row-2 {
+  .tanman-row-2 {
     display: grid;
     grid-template-columns: 50fr 50fr;
     gap: 1.5rem;
@@ -2377,7 +2375,7 @@ body {
   }
 
   /* Third row: 60/40 split */
-  .nrev-row-3 {
+  .tanman-row-3 {
     display: grid;
     grid-template-columns: 40fr 60fr;
     gap: 1.5rem;
@@ -2385,7 +2383,7 @@ body {
 }
 
 /* Card styles */
-.nrev-card {
+.tanman-card {
   background-color: #111;
   border-radius: 0.75rem;
   padding-top: 3rem;
@@ -2394,37 +2392,37 @@ body {
   transition: all 0.3s ease;
 }
 
-.nrev-card:hover {
+.tanman-card:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-.nrev-card h2 {
+.tanman-card h2 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0.75rem;
 }
 
-.nrev-card p {
+.tanman-card p {
   margin-bottom: 1rem;
   line-height: 1.6;
 }
 
 /* Card variations */
-.nrev-card-purple {
+.tanman-card-purple {
   background-color: #8b5cf6;
 }
 
-.nrev-card-dark {
+.tanman-card-dark {
   background-color: #111827;
 }
 
-.nrev-card-gradient {
+.tanman-card-gradient {
   background: linear-gradient(to bottom right, #a9a6c0, #7200e3);
 }
 
 /* Icon styles */
-.nrev-icon {
+.tanman-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2434,21 +2432,21 @@ body {
   margin-bottom: 1rem;
 }
 
-.nrev-icon-teal {
+.tanman-icon-teal {
   background-color: #0f766e;
 }
 
-.nrev-icon-purple {
+.tanman-icon-purple {
   background-color: #8b5cf6;
 }
 
-.nrev-icon-row {
+.tanman-icon-row {
   display: flex;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
 }
 
-.nrev-icon-circle {
+.tanman-icon-circle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2459,11 +2457,11 @@ body {
 }
 
 /* Button styles */
-.nrev-button-group {
+.tanman-button-group {
   text-align: center;
 }
 
-.nrev-button {
+.tanman-button {
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   font-size: 0.875rem;
@@ -2473,46 +2471,46 @@ body {
   transition: background-color 0.2s;
 }
 
-.nrev-button-purple {
+.tanman-button-purple {
   background-color: #8b5cf6;
 }
 
-.nrev-button-purple:hover {
+.tanman-button-purple:hover {
   background-color: #7c3aed;
 }
 
-.nrev-button-purple-dark {
+.tanman-button-purple-dark {
   background-color: #6d28d9;
 }
 
-.nrev-button-purple-dark:hover {
+.tanman-button-purple-dark:hover {
   background-color: #5b21b6;
 }
 
-.nrev-button-teal {
+.tanman-button-teal {
   background-color: #0f766e;
 }
 
-.nrev-button-teal:hover {
+.tanman-button-teal:hover {
   background-color: #115e59;
 }
 
-.nrev-placeholder {
+.tanman-placeholder {
   text-align: right;
 }
 
-.nrev-placeholder-small {
+.tanman-placeholder-small {
   width: 4rem;
   height: 4rem;
   margin-right: 1rem;
   margin-bottom: 1.5rem;
 }
 
-.nrev-bold {
+.tanman-bold {
   font-weight: bold;
 }
 
-.nrev-sol3 {
+.tanman-sol3 {
   background-color: #111;
   border-radius: 0.75rem;
   padding-top: 3rem;
@@ -2522,7 +2520,7 @@ body {
   gap: 40px;
 }
 
-.nrev-sol3:hover {
+.tanman-sol3:hover {
   transform: scale(1.02);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
